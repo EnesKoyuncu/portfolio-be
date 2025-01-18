@@ -5,7 +5,7 @@ import textRoutes from "./routes/textRoutes";
 
 // 🌐 MongoDB Bağlantısı
 const mongoURI =
-  "mongodb+srv://eneskoyuncu5507:eneskoyuncu5507@portfoliocluster.mongodb.net/portfolio?retryWrites=true&w=majority";
+  "mongodb+srv://eneskoyuncu5507:eneskoyuncu5507@portfoliocluster.8d1tw.mongodb.net/?retryWrites=true&w=majority&appName=PortfolioCluster";
 mongoose
   .connect(mongoURI)
   .then(() => console.log("✅ MongoDB bağlantısı başarılı!"))
