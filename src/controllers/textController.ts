@@ -69,15 +69,6 @@ export const getTextsByComponentAndLang = async (
       });
     }
 
-    // Gelen veriyi düzenliyoruz
-    // const translations = texts.reduce((acc: Record<string, string>, text) => {
-    //   type LanguageKeys = "en" | "tr" | "de";
-    //   const language: LanguageKeys = "en";
-    //   acc[text.key] = text.translations[language];
-    //   console.log(acc);
-    //   return acc;
-    // }, {});
-
     const translations = texts.reduce((acc: Record<string, string>, text) => {
       const translation =
         text.translations[language as keyof typeof text.translations];

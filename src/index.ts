@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import textRoutes from "./routes/textRoutes";
+import aboutRoutes from "./routes/abouteRoutes";
 
 // 🌐 MongoDB Bağlantısı
 const mongoURI =
@@ -20,6 +21,8 @@ app.use(express.json());
 
 // 📌 Text Routes
 app.use("/api/texts", textRoutes);
+
+app.use("/api/about", aboutRoutes);
 
 // 🌐 Sunucu Başlat
 app.listen(PORT, () =>
