@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IProject extends Document {
+  _id: mongoose.Types.ObjectId;
   title: {
     [key: string]: string; // Örneğin: { en: "Web Project", tr: "Web Projesi", de: "Web Projekt" }
   };

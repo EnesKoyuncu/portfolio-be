@@ -1,14 +1,25 @@
 import { Request, Response } from "express";
 import Project from "../models/projectModel";
+import { IProject } from "../models/projectModel";
 
 // Tüm projeleri getir (dil desteği ile)
-export const getProjects = async (req: Request, res: Response) => {
+export const getProjects = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const { language } = req.query;
+
+    if (!language) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Language query param is required" });
+    }
+
     const projects = await Project.find();
 
-    const localizedProjects = projects.map((project) => ({
-      id: project._id,
+    const localizedProjects = projects.map((project: IProject) => ({
+      id: project._id.toString(), // ObjectId'yi string'e çevir
       title: project.title[language as string] || project.title["en"],
       description:
         project.description[language as string] || project.description["en"],
@@ -16,7 +27,6 @@ export const getProjects = async (req: Request, res: Response) => {
       link: project.link,
     }));
 
-    // `success` alanını ekleyin
     res.status(200).json({ success: true, data: localizedProjects });
   } catch (error) {
     console.error("Error fetching projects:", error);

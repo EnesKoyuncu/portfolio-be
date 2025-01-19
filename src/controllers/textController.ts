@@ -60,8 +60,6 @@ export const getTextsByComponentAndLang = async (
       }
     );
 
-    console.log("Fetched texts from DB:", texts);
-
     if (!texts || texts.length === 0) {
       return res.status(404).json({
         success: false,
