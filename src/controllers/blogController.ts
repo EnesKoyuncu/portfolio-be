@@ -1,10 +1,18 @@
 import { Request, Response } from "express";
 import Blog from "../models/blogModel";
 
-// Tüm blog yazılarını getir
+// Tüm blog yazılarını getir (Dil desteği eklenmiş)
 export const getBlogs = async (req: Request, res: Response) => {
+  const { language } = req.query; // Dil sorgusunu al
   try {
-    const blogs = await Blog.find();
+    let blogs;
+    if (language) {
+      blogs = await Blog.find().select(
+        `title.${language} summary.${language} content.${language} date keywords image`
+      );
+    } else {
+      blogs = await Blog.find(); // Tüm dilleri getir
+    }
     res.status(200).json({ success: true, data: blogs });
   } catch (error) {
     console.error("Error fetching blogs:", error);
