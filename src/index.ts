@@ -8,19 +8,6 @@ import aboutRoutes from "./routes/abouteRoutes";
 import projectRoutes from "./routes/projectRoute";
 import blogRoutes from "./routes/blogRoutes";
 
-// MongoDB Connection
-const mongoURI = process.env.MONGODB_URI;
-
-if (!mongoURI) {
-  console.error("❌ MONGODB_URI is not defined in environment variables");
-  process.exit(1);
-}
-
-mongoose
-  .connect(mongoURI)
-  .then(() => console.log("✅ MongoDB bağlantısı başarılı!"))
-  .catch((err) => console.error("❌ MongoDB bağlantı hatası:", err));
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -33,6 +20,27 @@ app.use("/api/texts", textRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/blogs", blogRoutes);
+
+app.use(
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    console.error(err.stack);
+    res.status(500).json({ error: "Something broke!" });
+  }
+);
+
+// MongoDB Connection
+mongoose
+  .connect(process.env.MONGODB_URI as string)
+  .then(() => console.log("✅ MongoDB bağlantısı başarılı!"))
+  .catch((err) => {
+    console.error("❌ MongoDB bağlantı hatası:", err);
+    process.exit(1);
+  });
 
 // Start Server
 app.listen(PORT, () =>
