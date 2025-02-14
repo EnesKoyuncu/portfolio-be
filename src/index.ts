@@ -7,6 +7,7 @@ import textRoutes from "./routes/textRoutes";
 import aboutRoutes from "./routes/abouteRoutes";
 import projectRoutes from "./routes/projectRoute";
 import blogRoutes from "./routes/blogRoutes";
+import contacRoutes from "./routes/contactRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use("/api/texts", textRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/blogs", blogRoutes);
+app.use("/api/contact", contacRoutes);
 
 app.use(
   (
